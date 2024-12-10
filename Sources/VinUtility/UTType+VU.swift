@@ -5,6 +5,6 @@
 import UniformTypeIdentifiers
 
 public extension UTType {
-	static let opml = UTType("org.opml.opml")!
-	static let markdown = UTType("net.daringfireball.markdown")!
+	static let opml = UTType(filenameExtension: "opml", conformingTo: .xml)!
+	static let markdown = UTType(filenameExtension: "md", conformingTo: .plainText)!
 }
