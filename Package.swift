@@ -22,7 +22,8 @@ let package = Package(
 		dependencies: [
 			.product(name: "OrderedCollections", package: "swift-collections"),
 			.product(name: "AsyncAlgorithms", package: "swift-async-algorithms"),
-		]
+		],
+		resources: [.copy("Resources")]
 	),
 	]
 )
