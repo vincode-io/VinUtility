@@ -11,18 +11,36 @@ public extension UIColor {
 	static let definedAccentColor = UIColor(named: "AccentColor")!
 
 	static var accentColor: UIColor {
+		guard let systemAccentColorNumber = UserDefaults.standard.string(forKey: "AppleAccentColor") else {
+			return .definedAccentColor
+		}
+		
+		switch systemAccentColorNumber {
+		case "-1": return .systemGray
+		case "0": return .systemRed
+		case "1": return .systemOrange
+		case "2": return .systemYellow
+		case "3": return .systemGreen
+		case "4": return .systemBlue
+		case "5": return .systemPurple
+		case "6": return .systemPink
+		default: return .definedAccentColor
+		}
+	}
+	
+	static var highlightColor: UIColor {
 		guard let systemHighlightColor = UserDefaults.standard.string(forKey: "AppleHighlightColor"),
-			  let colorName = systemHighlightColor.components(separatedBy: " ").last else { return .definedAccentColor }
+			  let colorName = systemHighlightColor.components(separatedBy: " ").last else { return .accentColor }
 		
 		guard colorName != "Graphite" else { return UIColor.systemGray }
 		
 		let selector = NSSelectorFromString(NSString.localizedStringWithFormat("system%@Color", colorName) as String)
-		guard UIColor.responds(to: selector) else { return UIColor(named: "AccentColor")! }
-		return UIColor.perform(selector).takeUnretainedValue() as? UIColor ?? .definedAccentColor
+		guard UIColor.responds(to: selector) else { return .accentColor }
+		return UIColor.perform(selector).takeUnretainedValue() as? UIColor ?? .accentColor
 	}
 	
-	var isDefaultAccentColor: Bool {
-		return self == UIColor(named: "AccentColor")!
+	var isDefinedAccentColor: Bool {
+		return self == UIColor.definedAccentColor
 	}
 	
 	func asImage(size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {

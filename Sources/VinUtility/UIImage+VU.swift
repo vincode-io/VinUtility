@@ -54,10 +54,6 @@ public extension UIImage {
 		return copy
 	}
 	
-	@MainActor func symbolSizedForCatalyst(pointSize: CGFloat = 16.0, color: UIColor = .systemGray) -> UIImage {
-		return applyingSymbolConfiguration(.init(pointSize: pointSize, weight: .regular, scale: .medium))!.tinted(color: color)!
-	}
-	
 	/// Tint an image.
 	///
 	/// - Parameter color: The color to use to tint the image.
